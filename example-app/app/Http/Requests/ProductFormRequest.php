@@ -27,12 +27,10 @@ class ProductFormRequest extends FormRequest
                 'max:100'
             ],
             'title' => [
-                'required',
-                'max:100'
+                'required|string'
             ],
             'description' => [
-            'required',
-            'max:255'
+            'required|string|max:255'
             ],
             'price' => [
             'required'

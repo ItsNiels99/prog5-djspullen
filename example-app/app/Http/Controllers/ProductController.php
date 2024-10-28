@@ -6,9 +6,6 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductFormRequest;
 
-
-
-
 class ProductController extends Controller
 {
     public function index()

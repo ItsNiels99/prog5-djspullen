@@ -21,6 +21,12 @@
                     <x-nav-link :href="url('/products')" :active="request()->routeIs('products')">
                         {{ __('See Products') }}
                     </x-nav-link>
+                    <x-nav-link :href="url('/reviews/create')" :active="request()->routeIs('add-reviews')">
+                        {{ __('Add Reviews') }}
+                    </x-nav-link>
+                    <x-nav-link :href="url('/reviews')" :active="request()->routeIs('reviews')">
+                        {{ __('See Reviews') }}
+                    </x-nav-link>
                 </div>
             </div>
 

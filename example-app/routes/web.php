@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\productController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,13 +36,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::controller(\App\Http\Controllers\ProductController::class)->group(function () {
+Route::controller(ProductController::class)->group(function () {
     route::get('/products', 'index');
     route::get('/create-product', 'create');
     route::post('/create-product', 'store');
     route::get('/edit-product/{product_id}', 'edit');
     route::put('/update-product/{product_id}', 'update');
     route::delete('/delete-product/{product_id}', 'destroy');
+});
+Route::controller(ReviewController::class)->group(function () {
+    route::get('/reviews', 'index');
+    route::get('/create-review', 'create');
+    route::post('/create-review', 'store');
+    route::get('/edit-review/{review_id}', 'edit');
+    route::put('/update-review/{review_id}', 'update');
+    route::delete('/delete-review/{review_id}', 'destroy');
 });
 
 require __DIR__.'/auth.php';
