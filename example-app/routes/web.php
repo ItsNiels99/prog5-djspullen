@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\productController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +26,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/products/create', function () {
     return view('products.create');
-})->middleware('auth', 'verified')->name('products.create');
-
-
+})->middleware(['auth', 'verified'])->name('products.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,20 +35,21 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::controller(ProductController::class)->group(function () {
-    route::get('/products', 'index');
-    route::get('/create-product', 'create');
-    route::post('/create-product', 'store');
-    route::get('/edit-product/{product_id}', 'edit');
-    route::put('/update-product/{product_id}', 'update');
-    route::delete('/delete-product/{product_id}', 'destroy');
+    Route::get('/products', 'index')->name('products.index');
+    Route::get('/create-product', 'create')->name('products.create');
+    Route::post('/create-product', 'store')->name('products.store');
+    Route::get('/edit-product/{product_id}', 'edit')->name('products.edit');
+    Route::put('/update-product/{product_id}', 'update')->name('products.update');
+    Route::delete('/delete-product/{product_id}', 'destroy')->name('products.destroy');
 });
+
 Route::controller(ReviewController::class)->group(function () {
-    route::get('/reviews', 'index');
-    route::get('/create-review', 'create');
-    route::post('/create-review', 'store');
-    route::get('/edit-review/{review_id}', 'edit');
-    route::put('/update-review/{review_id}', 'update');
-    route::delete('/delete-review/{review_id}', 'destroy');
+    Route::get('/reviews', 'index')->name('reviews.index');
+    Route::get('/create-review', 'create')->name('reviews.create');
+    Route::post('/create-review', 'store')->name('reviews.store');
+    Route::get('/edit-review/{review_id}', 'edit')->name('reviews.edit');
+    Route::put('/update-review/{review_id}', 'update')->name('reviews.update');
+    Route::delete('/delete-review/{review_id}', 'destroy')->name('reviews.destroy');
 });
 
 require __DIR__.'/auth.php';
