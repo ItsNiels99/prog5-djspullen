@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\User;
+use App\Models\product;
 
 class ReviewFormRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class ReviewFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return True;
     }
 
     /**
@@ -22,15 +24,25 @@ class ReviewFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => [
-                'required',
-                'max:100'
-            ],
             'title' => [
-                'required|string|max:100',
+                'string',
+                'required',
+                'max:255'
             ],
             'description' => [
-                'required|string|max:255',
+            'required',
+            'string',
+            'max:255'
+            ],
+            'user_id' => [
+                'required',
+                'integer',
+                'exists:users,id'
+            ],
+            'product_id' => [
+                'required',
+                'integer',
+                'exists:products,id'
             ]
         ];
     }

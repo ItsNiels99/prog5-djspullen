@@ -11,17 +11,17 @@
                     <form action="{{ url('update-review/'.$review->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <!--Product name -->
+                        <!--Review name -->
                         <div>
                             <x-input-label for="title" :value="__('Review Title')" />
                             <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="$review->title" autofocus/>
                             <x-input-error :messages="$errors->get('title')" class="mt-2" />
                         </div>
-                        <!-- Product Description -->
+                        <!-- Product Content -->
                         <div>
-                            <x-input-label for="description" :value="__('Review Description')" />
-                            <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="$review->description" autofocus/>
-                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                            <x-input-label for="content" :value="__('Review Content')" />
+                            <x-text-input id="content" class="block mt-1 w-full" type="text" name="content" :value="$review->content" autofocus/>
+                            <x-input-error :messages="$errors->get('content')" class="mt-2" />
                         </div>
                         <x-primary-button class="ms-3 align-bottom">
                             {{  __('Update Review') }}

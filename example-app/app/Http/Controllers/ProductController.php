@@ -64,4 +64,9 @@ class ProductController extends Controller
         $product->delete();
         return redirect('products')->with('success', 'Product deleted successfully.');
     }
+    public function toggleStatus(Product $product)
+    {
+        $product->toggleStatus();
+        return redirect()->route('products.index')->with('message', 'Product status updated successfully!');
+    }
 }

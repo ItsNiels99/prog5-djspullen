@@ -8,6 +8,13 @@ use Illuminate\Notifications\Notifiable;
 
 class Product extends Model
 {
+    // Other model methods and properties
+
+    public function toggleStatus()
+    {
+        $this->status = !$this->status;
+        $this->save();
+    }
     protected $table ='products';
     use HasFactory;
 

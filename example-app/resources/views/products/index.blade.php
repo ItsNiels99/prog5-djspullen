@@ -14,6 +14,7 @@
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Title</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Description</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Price</th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Status</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Edit</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Delete</th>
                         </tr>
@@ -24,6 +25,16 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $product->title }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $product->description }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $product->price }}</td>
+                                <td>
+                                    <form action="{{ route('products.toggleStatus', $product->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ $product->status ? 'Deactivate' : 'Activate' }}
+                                        </button>
+                                    </form>
+                                </td>
+
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <a href="{{ url('/edit-product/'.$product->id) }}" class="btn btn-primary">Edit</a>
                                 </td>

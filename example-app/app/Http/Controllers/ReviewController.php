@@ -2,50 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\User;
 use App\Http\Requests\ReviewFormRequest;
 use App\Models\Review;
 use Illuminate\Http\Request;
-
 
 class ReviewController extends Controller
 {
     public function index()
     {
         $reviews = Review::all();
-        return view('Reviews.index', compact('reviews'));
+        return view('reviews.index', compact('reviews'));
     }
+
     public function create()
     {
-        return view('reviews.create');
+        $products = Product::all();
+        $users = User::all();
+        return view('reviews.create', compact('products', 'users'));
     }
 
-    public function store(ReviewsFormRequest $request)
+    public function store(ReviewFormRequest $request)
     {
+        $data['user_id'] = auth()->user()->id;
+        $data['product_id'] = $request->product_id;
         $data = $request->validated();
 
-        $reviews = Product::create($data);
-        return redirect('/reviews/create')->with('message', 'Reviews added Succesfully!');
-    }
-
-    public function edit($reviews_id)
-    {
-        $product = Product::findOrFail($reviews_id);
-        return view('reviews.edit', compact('review'));
-    }
-
-    public function update(ReviewEditRequest $request, $id)
-    {
-        $review = Review::findOrFail($id); // Vind de review die je wilt updaten
-
-        $review->update($request->validated()); // Update de review met gevalideerde data
-
-        return redirect()->route('reviews.show', $id)->with('success', 'Review bijgewerkt!');
-    }
-
-    public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
-        $product->delete();
-        return redirect('reviews')->with('success', 'Product deleted successfully.');
+        Review::create($data);
+        return redirect()->route('reviews')->with('message', 'Review added successfully!');
     }
 }

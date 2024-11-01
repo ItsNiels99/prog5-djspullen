@@ -41,6 +41,7 @@ Route::controller(ProductController::class)->group(function () {
     Route::get('/edit-product/{product_id}', 'edit')->name('products.edit');
     Route::put('/update-product/{product_id}', 'update')->name('products.update');
     Route::delete('/delete-product/{product_id}', 'destroy')->name('products.destroy');
+    Route::put('products/{product}/toggle-status', [ProductController::class, 'toggleStatus'])->name('products.toggleStatus');
 });
 
 Route::controller(ReviewController::class)->group(function () {
