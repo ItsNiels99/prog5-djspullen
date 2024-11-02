@@ -13,6 +13,8 @@
                         <tr>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Title</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Content</th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Product</th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">User</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Edit</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Delete</th>
                         </tr>
@@ -22,6 +24,8 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $review->title }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $review->content }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $review->product->title }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $review->user->name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <a href="{{ url('/edit-review/'.$review->id) }}" class="btn btn-primary">Edit</a>
                                 </td>

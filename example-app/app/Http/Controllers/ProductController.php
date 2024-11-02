@@ -13,48 +13,45 @@ class ProductController extends Controller
         $products = Product::all();
         return view('products.index', compact('products'));
     }
+
     public function create()
     {
         return view('products.create');
     }
 
-    public function store(ProductFormRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
-
-        $product = Product::create($data);
-        return redirect('/products/create')->with('message', 'Product added Succesfully!');
-    }
-
-    public function edit($product_id)
-    {
-        // Find the product by ID
-        $product = Product::findOrFail($product_id);
-
-        // Return the edit view with the product data
-        return view('products.edit', compact('product'));
-    }
-
-    public function update(Request $request, $product_id)
-    {
-        // Validate the request data
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
         ]);
 
-        // Find the product by ID
-        $product = Product::findOrFail($product_id);
+        $product = Product::create($request->all());
+        return redirect()->route('products.create')->with('success', 'Product added successfully!');
+    }
 
-        // Update the product with the new data
+    public function edit($product_id)
+    {
+        $product = Product::findOrFail($product_id);
+        return view('products.edit', compact('product'));
+    }
+
+    public function update(Request $request, $product_id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+        ]);
+
+        $product = Product::findOrFail($product_id);
         $product->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'price' => $request->input('price'),
         ]);
 
-        // Redirect back with a success message
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
 
@@ -64,6 +61,7 @@ class ProductController extends Controller
         $product->delete();
         return redirect('products')->with('success', 'Product deleted successfully.');
     }
+
     public function toggleStatus(Product $product)
     {
         $product->toggleStatus();

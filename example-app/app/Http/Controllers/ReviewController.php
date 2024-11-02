@@ -23,13 +23,21 @@ class ReviewController extends Controller
         return view('reviews.create', compact('products', 'users'));
     }
 
-    public function store(ReviewFormRequest $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'user_id' => 'required|exists:users,id',
+            'product_id' => 'required|exists:products,id',
+        ]);
         $data['user_id'] = auth()->user()->id;
         $data['product_id'] = $request->product_id;
-        $data = $request->validated();
+        $data['title'] = $request->title;
+        $data['content'] = $request->content;
 
-        Review::create($data);
-        return redirect()->route('reviews')->with('message', 'Review added successfully!');
+
+        $review = Review::create($data);
+        return redirect()->route('reviews.index')->with('message', 'Review added successfully!');
     }
 }
