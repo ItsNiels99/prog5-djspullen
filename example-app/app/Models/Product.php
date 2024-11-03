@@ -9,14 +9,18 @@ use Illuminate\Notifications\Notifiable;
 class Product extends Model
 {
     // Other model methods and properties
-
+    use HasFactory;
     public function toggleStatus()
     {
         $this->status = !$this->status;
         $this->save();
     }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
     protected $table ='products';
-    use HasFactory;
+
 
     /**
      * The attributes that are mass assignable.

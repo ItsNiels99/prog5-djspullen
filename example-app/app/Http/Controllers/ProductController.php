@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Tag;
 use App\Http\Requests\ProductFormRequest;
 
 class ProductController extends Controller
 {
     public function index()
     {
-
         $products = Product::all();
         return view('products.index', compact('products'));
     }
@@ -19,6 +19,15 @@ class ProductController extends Controller
         $query = $request->input('query');
         $products = Product::where('title', 'LIKE', "%{$query}%")->get();
         return view('products.index', compact('products'));
+    }
+    public function addTags(Request $request, $productId)
+    {
+        $product = Product::findOrFail($productId);
+        $tagIds = $request->input('tags'); // Array of tag IDs
+
+        $product->tags()->sync($tagIds);
+
+        return redirect()->route('products.index')->with('success', 'Tags added successfully.');
     }
     public function welcome()
     {

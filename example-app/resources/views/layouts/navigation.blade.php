@@ -27,6 +27,14 @@
                     <x-nav-link :href="url('/reviews')" :active="request()->routeIs('reviews.index')">
                         {{ __('See Reviews') }}
                     </x-nav-link>
+                    @if(auth()->user()->isAdmin())
+                    <x-nav-link :href="url('/create-tag')" :active="request()->routeIs('tags.create')">
+                        {{ __('Add Tag') }}
+                    </x-nav-link>
+                    <x-nav-link :href="url('/tags')" :active="request()->routeIs('tags.index')">
+                        {{ __('See tags') }}
+                    </x-nav-link>
+                    @endif
                     <form action="{{ route('products.search') }}" method="GET" class="flex items-center">
                         <input type="text" name="query" placeholder="Search products..." class="form-input rounded-md shadow-sm mt-1 block w-full">
                         <button type="submit" class="ml-2 btn btn-primary">Search</button>

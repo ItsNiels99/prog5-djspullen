@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,8 @@ Route::controller(ProductController::class)->group(function () {
     Route::get('/edit-product/{product_id}', 'edit')->name('products.edit');
     Route::put('/update-product/{product_id}', 'update')->name('products.update');
     Route::delete('/delete-product/{product_id}', 'destroy')->name('products.destroy');
-    Route::put('products/{product}/toggle-status', [ProductController::class, 'toggleStatus'])->name('products.toggleStatus');
+    Route::put('products/{product}/toggle-status', ['toggleStatus'])->name('products.toggleStatus');
+    Route::post('/products/{product}/add-tags', ['addTags'])->name('products.addTags');
 });
 
 Route::controller(ReviewController::class)->group(function () {
@@ -51,5 +53,13 @@ Route::controller(ReviewController::class)->group(function () {
     Route::put('/update-review/{review_id}', 'update')->name('reviews.update');
     Route::delete('/delete-review/{review_id}', 'destroy')->name('reviews.destroy');
 });
+
+Route::controller(TagController::class)->group(function () {
+    Route::get('/tags', 'index')->name('tags.index');
+    Route::get('/create-tag', 'create')->name('tags.create');
+    Route::post('/create-tag', 'store')->name('tags.store');
+    Route::delete('/delete-tag/{tag_id}', 'destroy')->name('tags.destroy');
+});
+
 
 require __DIR__.'/auth.php';

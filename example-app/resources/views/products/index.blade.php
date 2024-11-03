@@ -14,6 +14,7 @@
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Title</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Description</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Price</th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Tags</th>
                             @if(auth()->user()->isAdmin())
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Status</th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Edit</th>
@@ -27,8 +28,15 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $product->title }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $product->description }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap"> € {{ $product->price }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($product->tags->isEmpty())
+                                        <a href="{{ route('products.addTags', $product->id) }}" class="btn btn-primary">Add Tags</a>
+                                    @else
+                                        {{ $product->tags->pluck('name')->join(', ') }}
+                                    @endif
+                                </td>
                                 @if(auth()->user()->isAdmin())
-                                <td>
+
                                     <form action="{{ route('products.toggleStatus', $product->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')

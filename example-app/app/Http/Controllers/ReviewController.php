@@ -41,6 +41,10 @@ class ReviewController extends Controller
     {
         $review = Review::findOrFail($review_id);
         $product = Product::all();
+        // Check if the authenticated user is the creator of the review or an admin
+        if (auth()->user()->id !== $review->user_id && !auth()->user()->isAdmin()) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('reviews.edit', compact('review', 'product'));
     }
 

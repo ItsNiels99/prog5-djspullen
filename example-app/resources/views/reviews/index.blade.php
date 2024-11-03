@@ -28,6 +28,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $review->content }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $review->product->title }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $review->user->name }}</td>
+
                                 @if(auth()->user()->isAdmin())
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <a href="{{ url('/edit-review/'.$review->id) }}" class="btn btn-primary">Edit</a>
