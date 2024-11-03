@@ -11,12 +11,14 @@
                     <table class="min-w-full">
                         <thead>
                         <tr>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Title</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Content</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Product</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">User</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Edit</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Delete</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Review Titel</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Review Content</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Product naam</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">User</th>
+                            @if(auth()->user()->isAdmin())
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Edit</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Delete</th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -26,6 +28,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $review->content }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $review->product->title }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $review->user->name }}</td>
+                                @if(auth()->user()->isAdmin())
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <a href="{{ url('/edit-review/'.$review->id) }}" class="btn btn-primary">Edit</a>
                                 </td>
@@ -36,6 +39,7 @@
                                         <x-danger-button>Delete</x-danger-button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>

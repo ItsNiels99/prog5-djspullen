@@ -27,6 +27,10 @@
                     <x-nav-link :href="url('/reviews')" :active="request()->routeIs('reviews.index')">
                         {{ __('See Reviews') }}
                     </x-nav-link>
+                    <form action="{{ route('products.search') }}" method="GET" class="flex items-center">
+                        <input type="text" name="query" placeholder="Search products..." class="form-input rounded-md shadow-sm mt-1 block w-full">
+                        <button type="submit" class="ml-2 btn btn-primary">Search</button>
+                    </form>
                 </div>
             </div>
 

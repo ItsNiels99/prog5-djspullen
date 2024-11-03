@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-8 text-gray-900 dark:text-gray-100">
-                    <form action="{{ url('update-review/'.$review->id) }}" method="POST">
+                    <form action="{{ url('reviews.edit/'.$review->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <!--Review name -->
@@ -23,6 +23,7 @@
                             <x-text-input id="content" class="block mt-1 w-full" type="text" name="content" :value="$review->content" autofocus/>
                             <x-input-error :messages="$errors->get('content')" class="mt-2" />
                         </div>
+
                         <x-primary-button class="ms-3 align-bottom">
                             {{  __('Update Review') }}
                         </x-primary-button>

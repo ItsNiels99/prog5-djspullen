@@ -25,7 +25,7 @@ class ReviewController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'user_id' => 'required|exists:users,id',
@@ -33,11 +33,40 @@ class ReviewController extends Controller
         ]);
         $data['user_id'] = auth()->user()->id;
         $data['product_id'] = $request->product_id;
-        $data['title'] = $request->title;
-        $data['content'] = $request->content;
-
 
         $review = Review::create($data);
         return redirect()->route('reviews.index')->with('message', 'Review added successfully!');
+    }
+    public function edit($review_id)
+    {
+        $review = Review::findOrFail($review_id);
+        $product = Product::all();
+        return view('reviews.edit', compact('review', 'product'));
+    }
+
+    public function update(Request $request, $review_id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'user_id' => 'required|exists:users,id',
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        $review = Review::findOrFail($review_id);
+        $review->update([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'user_id' => $request->input('user_id'),
+            'product_id' => $request->input('product_id'),
+        ]);
+
+        return redirect()->route('reviews.edit')->with('success', 'Product updated successfully.');
+    }
+    public function destroy($id)
+    {
+        $product = Review::findOrFail($id);
+        $product->delete();
+        return redirect('reviews')->with('success', 'Product deleted successfully.');
     }
 }

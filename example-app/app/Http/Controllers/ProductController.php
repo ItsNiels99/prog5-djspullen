@@ -10,8 +10,25 @@ class ProductController extends Controller
 {
     public function index()
     {
+
         $products = Product::all();
         return view('products.index', compact('products'));
+    }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::where('title', 'LIKE', "%{$query}%")->get();
+        return view('products.index', compact('products'));
+    }
+    public function welcome()
+    {
+        $products = Product::all();
+        return view('welcome', compact('products'));
+    }
+    public function dashboard()
+    {
+        $products = Product::all();
+        return view('dashboard', compact('products'));
     }
 
     public function create()
