@@ -15,11 +15,12 @@ class Product extends Model
         $this->status = !$this->status;
         $this->save();
     }
+    protected $table ='products';
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
     }
-    protected $table ='products';
+
 
 
     /**

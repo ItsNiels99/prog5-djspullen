@@ -41,7 +41,6 @@ Route::controller(ProductController::class)->group(function () {
     Route::get('/edit-product/{product_id}', 'edit')->name('products.edit');
     Route::put('/update-product/{product_id}', 'update')->name('products.update');
     Route::delete('/delete-product/{product_id}', 'destroy')->name('products.destroy');
-    Route::put('products/{product}/toggle-status', ['toggleStatus'])->name('products.toggleStatus');
     Route::post('/products/{product}/add-tags', ['addTags'])->name('products.addTags');
 });
 
@@ -60,6 +59,7 @@ Route::controller(TagController::class)->group(function () {
     Route::post('/create-tag', 'store')->name('tags.store');
     Route::delete('/delete-tag/{tag_id}', 'destroy')->name('tags.destroy');
 });
+Route::put('products/{product}/toggle-status', [ProductController::class, 'toggleStatus'])->name('products.toggleStatus');
 Route::get('/products/{product}/add-tags', [ProductController::class, 'addTags'])->name('products.addTags');
 Route::post('/products/{product}/add-tags', [ProductController::class, 'addTags'])->name('products.addTags');
 

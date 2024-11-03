@@ -11,14 +11,14 @@
                     <table class="min-w-full">
                         <thead>
                         <tr>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Title</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Description</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Price</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Tags</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Titel</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Beschrijving</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Prijs</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Onderwerpen</th>
                             @if(auth()->user()->isAdmin())
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Status</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Edit</th>
-                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Delete</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Status</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Aanpassen</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Delete</th>
                             @endif
                         </tr>
                         </thead>
@@ -28,6 +28,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $product->title }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $product->description }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap"> € {{ $product->price }}</td>
+                                <!-- Tags -->
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @foreach($product->tags as $tag)
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
@@ -35,9 +36,9 @@
                                         </span>
                                     @endforeach
                                 </td>
-
+                                <!-- Status -->
                                 @if(auth()->user()->isAdmin())
-
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     <form action="{{ route('products.toggleStatus', $product->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
@@ -46,7 +47,6 @@
                                         </button>
                                     </form>
                                 </td>
-
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <a href="{{ url('/edit-product/'.$product->id) }}" class="btn btn-primary">Edit</a>
                                 </td>
