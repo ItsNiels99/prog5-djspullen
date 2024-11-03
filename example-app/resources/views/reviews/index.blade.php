@@ -14,7 +14,7 @@
                             <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Review Titel</th>
                             <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Review Content</th>
                             <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Product naam</th>
-                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">User</th>
+                            <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Gemaakt door</th>
                             @if(auth()->user()->isAdmin())
                             <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Edit</th>
                             <th scope="col" class="text-sm font-medium text-white px-6 py-4 text-left">Delete</th>
