@@ -29,12 +29,13 @@
                                 <td class="px-6 py-4 whitespace-nowrap">{{ $product->description }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap"> € {{ $product->price }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    @if($product->tags->isEmpty())
-                                        <a href="{{ route('products.addTags', $product->id) }}" class="btn btn-primary">Add Tags</a>
-                                    @else
-                                        {{ $product->tags->pluck('name')->join(', ') }}
-                                    @endif
+                                    @foreach($product->tags as $tag)
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                            {{ $tag->name }}
+                                        </span>
+                                    @endforeach
                                 </td>
+
                                 @if(auth()->user()->isAdmin())
 
                                     <form action="{{ route('products.toggleStatus', $product->id) }}" method="POST">

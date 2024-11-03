@@ -37,6 +37,12 @@
                     @endif
                     <form action="{{ route('products.search') }}" method="GET" class="flex items-center">
                         <input type="text" name="query" placeholder="Search products..." class="form-input rounded-md shadow-sm mt-1 block w-full">
+                        <select name="tag" class="form-select rounded-md shadow-sm mt-1 block w-full">
+                            <option value="">Select Tag</option>
+                            @foreach(App\Models\Tag::all() as $tag)
+                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
+                        </select>
                         <button type="submit" class="ml-2 btn btn-primary">Search</button>
                     </form>
                 </div>

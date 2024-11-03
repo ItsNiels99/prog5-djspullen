@@ -60,6 +60,7 @@ Route::controller(TagController::class)->group(function () {
     Route::post('/create-tag', 'store')->name('tags.store');
     Route::delete('/delete-tag/{tag_id}', 'destroy')->name('tags.destroy');
 });
-
+Route::get('/products/{product}/add-tags', [ProductController::class, 'addTags'])->name('products.addTags');
+Route::post('/products/{product}/add-tags', [ProductController::class, 'addTags'])->name('products.addTags');
 
 require __DIR__.'/auth.php';

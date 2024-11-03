@@ -51,10 +51,19 @@ class ProductController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
+            'tags' => 'array',
+            'tags.*' => 'exists:tags,id',
         ]);
 
-        $product = Product::create($request->all());
-        return redirect()->route('products.create')->with('success', 'Product added successfully!');
+        $product = Product::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+        ]);
+        if ($request->has('tags')) {
+            $product->tags()->sync($request->tags);
+        }
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
     public function edit($product_id)

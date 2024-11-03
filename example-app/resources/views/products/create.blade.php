@@ -12,22 +12,30 @@
                         @csrf
                         <!--Product name -->
                         <div>
-                            <x-input-label for="title" :value="__('Product Title')" />
+                            <x-input-label for="title" :value="__('Product Titel')" />
                             <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus/>
                             <x-input-error :messages="$errors->get('title')" class="mt-2" />
                         </div>
                         <!-- Product Description -->
                         <div>
-                            <x-input-label for="description" :value="__('Product Description')" />
+                            <x-input-label for="description" :value="__('Product Omschrijving')" />
                             <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" required autofocus/>
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
                         <div>
-                            <x-input-label for="price" :value="__('Product Price')" />
+                            <x-input-label for="price" :value="__('Product Prijs')" />
                             <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" placeholder="1.0" step="0.01" min="0" :value="old('price')" required autofocus/>
                             <x-input-error :messages="$errors->get('price')" class="mt-2" />
                         </div>
-
+                        <div>
+                            <x-input-label for="tags" :value="__('Product Onderwerpen')" />
+                            <select name="tags[]" id="tags" class="block bg-gray-800 mt-1 w-full" multiple>
+                                @foreach(App\Models\Tag::all() as $tag)
+                                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('tags')" class="mt-2" />
+                        </div>
                         <x-primary-button class="ms-3 align-bottom">
                             {{ __('Make Product') }}
                         </x-primary-button>
